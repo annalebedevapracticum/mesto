@@ -2,4 +2,6 @@
    background-color: #FFFFFF;
    overflow: hidden; 
    border-radius: 10px;
+   max-width: 282px;
+   margin: auto;
 }
