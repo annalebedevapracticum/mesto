@@ -7,3 +7,11 @@
     font-size: 22px;
     justify-self: self-end;
 }
+
+
+@media screen and (max-width: 767px) {
+    .profile__add-button{
+    width: 100%;
+    margin: 0 19px;
+    }
+ }
