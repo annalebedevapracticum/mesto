@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+    <link rel="stylesheet" href="pages/index.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="page">
+            <header class="header">
+                <img class="header__logo" alt="Место" src="./images/Vector.svg">
+                <hr class="header__underline" />
+            </header>
+            <div class="profile">
+                <div class="profile__left-side">
+                    <img class="profile__avatar" alt="Аватар" src="./images/avatar.png">
+                    <div class="profile__info">
+                        <div class="profile__row">
+                            <p id="profile__name">Жак-Ив Кусто</p>
+                            <img id="profile__edit-button" alt="Изменить" src="./images/edit button.svg">
+                        </div>
+                        <p id="profile__description">Исследователь океана</p>
+                    </div>
+                </div>
+                <button class="profile__add-button">+</button>
+            </div>
+            <main class="cards">
+                <div class="card">
+                    <img class="card__image" alt="Карачаевск" src="./images/1.png">
+                    <div class="card__description">
+                        <p class="card__title">Карачаевск</p>
+                        <img class="card__like" alt="Нравится" src="./images/like.svg">
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card__image" alt="Гора Эльбрус" src="./images/2.png">
+                    <div class="card__description">
+                        <p class="card__title">Гора Эльбрус</p>
+                        <img class="card__like" alt="Нравится" src="./images/like.svg">
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card__image" alt="Домбай" src="./images/3.png">
+                    <div class="card__description">
+                        <p class="card__title">Домбай</p>
+                        <img class="card__like" alt="Нравится" src="./images/like.svg">
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card__image" alt="Гора Эльбрус" src="./images/4.png">
+                    <div class="card__description">
+                        <p class="card__title">Гора Эльбрус</p>
+                        <img class="card__like" alt="Нравится" src="./images/like.svg">
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card__image" alt="Домбай" src="./images/5.png">
+                    <div class="card__description">
+                        <p class="card__title">Домбай</p>
+                        <img class="card__like" alt="Нравится" src="./images/like.svg">
+                    </div>
+                </div>
+                <div class="card">
+                    <img class="card__image" alt="Карачаево-Черкессия" src="./images/1.png">
+                    <div class="card__description">
+                        <p class="card__title">Карачаево-Черкессия</p>
+                        <img class="card__like" alt="Нравится" src="./images/like.svg">
+                    </div>
+                </div>
+            </main>
+            <div class="popup">
+                <form class="popup__container">
+                    <img id="popup__close" src="./images/Close Icon.svg" alt="Закрыть">
+                    <h3 class="popup__title">Редактировать профиль</h3>
+                    <input class="popup__inputs" id="popup__name" type="text" value="Жак-Ив Кусто">
+                    <input class="popup__inputs" id="popup__job" type="text" value="Исследователь океана">
+                    <input class="popup__submit" type="submit" value="Сохранить">
+                </form>
+            </div>
+            <footer class="footer">&copy; 2022 Mesto Russia</footer>
+        </div>
+    </div>
+    <script src="./index.js"></script>
+</body>
+
+</html>

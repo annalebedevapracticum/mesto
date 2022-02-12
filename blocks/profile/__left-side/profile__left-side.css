@@ -1,0 +1,10 @@
+.profile__left-side{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media screen and (max-width: 767px) {
+    .profile__left-side {
+        justify-content: center;
+    }
+}
