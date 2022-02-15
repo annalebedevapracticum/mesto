@@ -1,7 +1,5 @@
-.profile{
+.profile {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     align-items: center;
     margin-top: 40px;
 }
@@ -9,5 +7,7 @@
 @media screen and (max-width: 767px) {
     .profile {
         justify-content: center;
+        flex-direction: column;
+        padding: 0 19px;
     }
 }
