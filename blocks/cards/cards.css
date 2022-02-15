@@ -1,7 +1,7 @@
-.cards{
+.cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr) );
-    gap: 17px;  
+    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+    gap: 17px;
     margin-top: 51px;
 }
 
@@ -9,4 +9,4 @@
     .cards {
         margin-top: 36px;
     }
- }
+}
