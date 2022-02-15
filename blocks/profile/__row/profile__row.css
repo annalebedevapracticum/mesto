@@ -1,6 +1,6 @@
 .profile__row {
    display: flex;
    align-items: center;
-   margin-bottom: 16px;
+   margin-bottom: 10px;
    max-width: 350px;
 }
