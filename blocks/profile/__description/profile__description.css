@@ -16,5 +16,6 @@
         text-align: center;
         align-self: flex-start;
         margin-left: 14px;
+        max-width: 240px;
     }
 }
