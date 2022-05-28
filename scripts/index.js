@@ -2,7 +2,7 @@ const editForm = document.querySelector('.profile-form');
 const addForm = document.querySelector('.add-form');
 // Находим поля формы в DOM
 const popupProfileInfo = document.querySelector('.popup-info');
-const popupAddCard = document.querySelector('.popup__add-card');
+const popupAddCard = document.querySelector('.popup-add-card');
 const nameInput = document.querySelector('#popup__name');
 const jobInput = document.querySelector('#popup__job');
 const closeButtons = document.querySelectorAll('.popup__close');
@@ -14,7 +14,7 @@ const profileDescription = document.querySelector('.profile__description');
 const profileAddButton = document.querySelector('.profile__add-button');
 const templateElement = document.querySelector('.card-template').content;
 const cardsSection = document.querySelector('.cards');
-const imagePopup = document.querySelector('.popup__image');
+const imagePopup = document.querySelector('.popup-image');
 const initialCards = [
     {
         name: 'Архыз',
@@ -111,9 +111,9 @@ cardsSection.addEventListener('click', function (event) {
     if (event.target.classList.contains('card__image')) {
         let parentCard = event.target.closest('.card');
         imagePopup.classList.add('popup_opened');
-        const image = document.querySelector('.image__view');
+        const image = document.querySelector('.popup__image');
         image.src = event.target.src;
-        const text = document.querySelector('.image__text');
+        const text = document.querySelector('.popup__text');
         text.textContent = parentCard.querySelector('.card__title').textContent;
     }
 
