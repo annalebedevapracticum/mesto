@@ -1,7 +1,7 @@
 const editForm = document.querySelector('.profile-form');
 const addForm = document.querySelector('.add-form');
 // Находим поля формы в DOM
-const popupProfileInfo = document.querySelector('.popup__profile-info');
+const popupProfileInfo = document.querySelector('.popup-info');
 const popupAddCard = document.querySelector('.popup__add-card');
 const nameInput = document.querySelector('#popup__name');
 const jobInput = document.querySelector('#popup__job');
