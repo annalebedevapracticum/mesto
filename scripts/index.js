@@ -16,6 +16,7 @@ const templateElement = document.querySelector('.card-template').content;
 const cardsSection = document.querySelector('.cards');
 const imagePopup = document.querySelector('.popup-image');
 
+
 function openForm(popupElement) {
     popupElement.classList.add('popup_opened');
 }
@@ -23,6 +24,23 @@ function openForm(popupElement) {
 function closeForm(popupElement) {
     popupElement.classList.remove('popup_opened');
 }
+function closeOpenedForm() {
+    const openedForm = document.querySelector('.popup_opened');
+    closeForm(openedForm);
+}
+
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        closeOpenedForm();
+    }
+})
+
+document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('popup')) {
+        closeOpenedForm();
+    }
+})
+
 
 function createCard(src, name) {
     const listElement = templateElement.cloneNode(true);
@@ -43,7 +61,7 @@ function createCard(src, name) {
     buttonDelete.addEventListener('click', function (evt) {
         evt.target.closest('.card').remove();
     });
-    
+
     const buttonLike = listElement.querySelector('.card__like');
     buttonLike.addEventListener('click', function () {
         buttonLike.classList.toggle('card__like_active');
@@ -79,11 +97,10 @@ function editFormSubmitHandler(evt) {
 function addFormSubmitHandler(evt) {
     evt.preventDefault();
     const card = createCard(cardLink.value, cardName.value);
-    cardLink.value = '';
-    cardName.value = '';
+    formAdd.reset();
     cardsSection.prepend(card);
     closeForm(popupAddCard);
-
+    enableValidation(mestoConfig);
 }
 
 formEdit.addEventListener('submit', editFormSubmitHandler);
@@ -94,3 +111,13 @@ initialCards.forEach(function (card) {
     cardsSection.append(listElement);
 });
 
+const mestoConfig = {
+    formSelector: 'form',
+    inputSelector: '.popup__inputs',
+    submitButtonSelector: '.popup__submit',
+    inactiveButtonClass: 'popup__submit_inactive',
+    inputErrorClass: 'popup__inputs_error',
+    errorClass: 'popup__error'
+};
+
+enableValidation(mestoConfig);
