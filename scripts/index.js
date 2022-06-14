@@ -15,32 +15,37 @@ const profileAddButton = document.querySelector('.profile__add-button');
 const templateElement = document.querySelector('.card-template').content;
 const cardsSection = document.querySelector('.cards');
 const imagePopup = document.querySelector('.popup-image');
-
+const popupImage = document.querySelector('.popup__image');
+const popupImageText = document.querySelector('.popup__text');
 
 function openForm(popupElement) {
     popupElement.classList.add('popup_opened');
+    document.addEventListener('keydown', handleEscape);
+    popupElement.addEventListener('click', handleOverlayClick)
+}
+
+function handleOverlayClick(event) {
+    if (event.target.classList.contains('popup')) {
+        closeOpenedForm();
+    }
 }
 
 function closeForm(popupElement) {
     popupElement.classList.remove('popup_opened');
+    document.removeEventListener('keydown', handleEscape);
+    popupElement.removeEventListener('click', handleOverlayClick);
 }
+
 function closeOpenedForm() {
     const openedForm = document.querySelector('.popup_opened');
     closeForm(openedForm);
 }
 
-document.addEventListener('keydown', function (event) {
+function handleEscape(event) {
     if (event.key === 'Escape') {
         closeOpenedForm();
     }
-})
-
-document.addEventListener('click', function (event) {
-    if (event.target.classList.contains('popup')) {
-        closeOpenedForm();
-    }
-})
-
+}
 
 function createCard(src, name) {
     const listElement = templateElement.cloneNode(true);
@@ -51,10 +56,9 @@ function createCard(src, name) {
     cardTitle.textContent = name;
     cardImage.addEventListener('click', function (evt) {
         openForm(imagePopup);
-        const image = document.querySelector('.popup__image');
-        image.src = src;
-        const text = document.querySelector('.popup__text');
-        text.textContent = name;
+        popupImage.src = src;
+        popupImage.alt = name;
+        popupImageText.textContent = name;
     });
 
     const buttonDelete = listElement.querySelector('.card__delete');
@@ -100,7 +104,6 @@ function addFormSubmitHandler(evt) {
     formAdd.reset();
     cardsSection.prepend(card);
     closeForm(popupAddCard);
-    enableValidation(mestoConfig);
 }
 
 formEdit.addEventListener('submit', editFormSubmitHandler);
