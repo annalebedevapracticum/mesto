@@ -26,7 +26,7 @@ function openForm(popupElement) {
 
 function handleOverlayClick(event) {
     if (event.target.classList.contains('popup')) {
-        closeOpenedForm();
+        closeForm(event.target);
     }
 }
 
