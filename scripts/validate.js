@@ -30,13 +30,6 @@ const setEventListeners = (formElement, passedConfig) => {
             toggleButtonState(inputList, buttonElement, passedConfig);
         });
     });
-    formElement.addEventListener('reset', function (evt) {
-        evt.preventDefault();
-        inputList.forEach((inputElement) => {
-            inputElement.value = "";
-        })
-        toggleButtonState(inputList, buttonElement, passedConfig);
-    });
 };
 
 const enableValidation = (passedConfig) => {

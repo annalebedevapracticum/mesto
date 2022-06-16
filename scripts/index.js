@@ -7,6 +7,7 @@ const nameInput = document.querySelector('#popup__name');
 const jobInput = document.querySelector('#popup__job');
 const buttonsClose = document.querySelectorAll('.popup__close');
 const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonAddCard = formAdd.querySelector('.popup__submit');
 const profileName = document.querySelector('.profile__name');
 const cardName = document.querySelector('#popup__card-name');
 const cardLink = document.querySelector('#popup__card-link');
@@ -102,6 +103,7 @@ function addFormSubmitHandler(evt) {
     evt.preventDefault();
     const card = createCard(cardLink.value, cardName.value);
     formAdd.reset();
+    toggleButtonState([cardName, cardLink], buttonAddCard, mestoConfig);
     cardsSection.prepend(card);
     closeForm(popupAddCard);
 }
