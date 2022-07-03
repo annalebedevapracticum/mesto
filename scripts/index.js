@@ -1,24 +1,6 @@
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
-
-const formEdit = document.querySelector('.profile-form');
-const formAdd = document.querySelector('.add-form');
-// Находим поля формы в DOM
-const popupProfileInfo = document.querySelector('.popup-info');
-const popupAddCard = document.querySelector('.popup-add-card');
-const nameInput = document.querySelector('#popup__name');
-const jobInput = document.querySelector('#popup__job');
-const buttonsClose = document.querySelectorAll('.popup__close');
-const buttonEdit = document.querySelector('.profile__edit-button');
-const profileName = document.querySelector('.profile__name');
-const cardName = document.querySelector('#popup__card-name');
-const cardLink = document.querySelector('#popup__card-link');
-const profileDescription = document.querySelector('.profile__description');
-const profileAddButton = document.querySelector('.profile__add-button');
-const cardsSection = document.querySelector('.cards');
-export const imagePopupForm = document.querySelector('.popup-image');
-export const popupImage = document.querySelector('.popup__image');
-export const popupImageText = document.querySelector('.popup__text');
+import { buttonEdit, buttonsClose, cardLink, cardName, cardsSection, closeForm, formAdd, formEdit, jobInput, nameInput, openForm, popupAddCard, popupProfileInfo, profileAddButton, profileDescription, profileName } from "./helpers.js";
 
 const initialCards = [
     {
@@ -60,34 +42,6 @@ const editProfileForm = new FormValidator(mestoConfig, formEdit);
 addCardForm.enableValidation();
 editProfileForm.enableValidation();
 
-export function openForm(popupElement) {
-    popupElement.classList.add('popup_opened');
-    document.addEventListener('keydown', handleEscape);
-    popupElement.addEventListener('click', handleOverlayClick)
-}
-
-function handleOverlayClick(event) {
-    if (event.target.classList.contains('popup')) {
-        closeForm(event.target);
-    }
-}
-
-function closeForm(popupElement) {
-    popupElement.classList.remove('popup_opened');
-    document.removeEventListener('keydown', handleEscape);
-    popupElement.removeEventListener('click', handleOverlayClick);
-}
-
-function closeOpenedForm() {
-    const openedForm = document.querySelector('.popup_opened');
-    closeForm(openedForm);
-}
-
-function handleEscape(event) {
-    if (event.key === 'Escape') {
-        closeOpenedForm();
-    }
-}
 
 function createCard(src, name) {
     const card = new Card({
@@ -125,10 +79,10 @@ function editFormSubmitHandler(evt) {
 function addFormSubmitHandler(evt) {
     evt.preventDefault();
     const card = createCard(cardLink.value, cardName.value);
-    formAdd.reset();
     addCardForm.toggleButtonState();
     cardsSection.prepend(card);
     closeForm(popupAddCard);
+    formAdd.reset();
 }
 
 formEdit.addEventListener('submit', editFormSubmitHandler);
