@@ -6,27 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
-    <link rel="stylesheet" href="pages/index.css">
 </head>
 
 <body class="wrapper">
     <div class="page">
         <header class="header">
-            <img class="header__logo" alt="Место" src="./images/Vector.svg">
+            <img class="header__logo" alt="Место" src="<%=require('./images/Vector.svg')%>">
         </header>
         <main class="main">
             <section class="profile">
-                <img class="profile__avatar" alt="Аватар" src="./images/avatar.png">
+                <img class="profile__avatar" alt="Аватар" src="<%=require('./images/avatar.png')%>">
                 <div class="profile__info">
                     <div class="profile__row">
                         <h1 class="profile__name">Жак-Ив Кусто</h1>
                         <button type="button" class="profile__edit-button"><img class="profile__edit-image"
-                                alt="Изменить" src="./images/editbutton.svg"></button>
+                                alt="Изменить" src="<%=require('./images/editbutton.svg')%>"></button>
                     </div>
                     <p class="profile__description">Исследователь океана</p>
                 </div>
                 <button type="button" class="profile__add-button"><img class="profile__plus" alt="Добавить"
-                        src="./images/Vector2.svg"></button>
+                        src="<%=require('./images/Vector2.svg')%>"></button>
             </section>
             <section class="cards">
             </section>
@@ -80,7 +79,6 @@
 
         </div>
     </template>
-    <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>

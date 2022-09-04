@@ -1,13 +1,12 @@
-import { imagePopupForm, openForm, popupImage, popupImageText } from "./helpers.js";
-
 export class Card {
-    constructor(data, templateSelector) {
+    constructor(data, templateSelector, handleCardClick) {
         this._data = data;
         this._element = document.querySelector(templateSelector).content.children[0].cloneNode(true);
         this._buttonDelete = this._element.querySelector('.card__delete');
         this._buttonLike = this._element.querySelector('.card__like');
         this._cardImage = this._element.querySelector('.card__image');
         this._cardTitle = this._element.querySelector('.card__title');
+        this._handleCardClick = handleCardClick;
     }
     _handleDelete = () => {
         this._element.remove();
@@ -17,10 +16,9 @@ export class Card {
         this._buttonLike.classList.toggle('card__like_active');
     }
     _handleOpen = () => {
-        popupImage.src = this._data.src;
-        popupImage.alt = this._data.name;
-        popupImageText.textContent = this._data.name;
-        openForm(imagePopupForm);
+        const { src, name } = this._data;
+        this._handleCardClick(src, name);
+
     }
     generateCard() {
         this._cardImage.src = this._data.src;
