@@ -20,15 +20,18 @@ export class Card {
         this._handleCardClick(src, name);
 
     }
-    generateCard() {
-        this._cardImage.src = this._data.src;
-        this._cardImage.alt = this._data.name;
-        this._cardTitle.textContent = this._data.name;
-
+    _setEventListeners(){
         this._cardImage.addEventListener('click', this._handleOpen);
         this._buttonDelete.addEventListener('click', this._handleDelete);
         this._buttonLike.addEventListener('click', this._handleLike);
 
+    }
+    generateCard() {
+        this._cardImage.src = this._data.src;
+        this._cardImage.alt = this._data.name;
+        this._cardTitle.textContent = this._data.name;
+        this._setEventListeners();
+       
         return this._element;
     }
 }
