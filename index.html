@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mesto</title>
+<script defer src="main.js"></script><link href="main.css" rel="stylesheet"></head>
+
+<body class="wrapper">
+    <div class="page">
+        <header class="header">
+            <img class="header__logo" alt="Место" src="bbe2a6eafac19c3d031c.svg">
+        </header>
+        <main class="main">
+            <section class="profile">
+                <img class="profile__avatar" alt="Аватар" src="a874d7b529f8e6b1a466.png">
+                <div class="profile__info">
+                    <div class="profile__row">
+                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <button type="button" class="profile__edit-button"><img class="profile__edit-image"
+                                alt="Изменить" src="af236f6cf67005f1d7aa.svg"></button>
+                    </div>
+                    <p class="profile__description">Исследователь океана</p>
+                </div>
+                <button type="button" class="profile__add-button"><img class="profile__plus" alt="Добавить"
+                        src="bed8c136e13907f5eefb.svg"></button>
+            </section>
+            <section class="cards">
+            </section>
+            <div class="popup popup-info">
+                <form name="profile__info" class="popup__container profile-form" novalidate>
+                    <button type="button" class="popup__close"></button>
+                    <h3 class="popup__title">Редактировать профиль</h3>
+                    <input name="name" class="popup__inputs" id="popup__name" type="text" value="Жак-Ив Кусто"
+                        minlength="2" maxlength="40" required>
+                    <span class="popup__error popup__name-error"></span>
+                    <input name="description" class="popup__inputs" id="popup__job" type="text"
+                        value="Исследователь океана" required minlength="2" maxlength="200">
+                    <span class="popup__error popup__job-error"></span>
+                    <button class="popup__submit" type="submit">Сохранить</button>
+                </form>
+            </div>
+            <div class="popup popup-add-card">
+                <form name="add-card" class="popup__container add-form" novalidate>
+                    <button type="button" class="popup__close"></button>
+                    <h3 class="popup__title">Новое место</h3>
+                    <input name="name" class="popup__inputs" id="popup__card-name" type="text" placeholder="Название"
+                        required minlength="2" maxlength="30">
+                    <span class="popup__error popup__card-name-error"></span>
+                    <input name="link" type="url" class="popup__inputs" id="popup__card-link" required
+                        placeholder="Ссылка на картинку">
+                    <span class="popup__error popup__card-link-error"></span>
+                    <button class="popup__submit" type="submit">Создать</button>
+                </form>
+            </div>
+            <div class="popup popup-image">
+                <div class="popup__container-image">
+                    <button type="button" class="popup__close"></button>
+                    <img class="popup__image" src="#" alt="Просмотр">
+                    <p class="popup__text"></p>
+                </div>
+            </div>
+
+        </main>
+        <footer class="footer">
+            <p class="footer__info">&copy; 2022 Mesto Russia</p>
+        </footer>
+    </div>
+    <template class="card-template">
+        <div class="card">
+            <img class="card__image" alt="Картинка" src="#">
+            <button type="button" class="card__delete"></button>
+            <div class="card__description">
+                <p class="card__title"></p>
+                <button type="button" class="card__like"></button>
+            </div>
+
+        </div>
+    </template>
+</body>
+
+</html>
