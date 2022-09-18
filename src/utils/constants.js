@@ -35,7 +35,7 @@ export const mestoConfig = {
 
 export const formEdit = document.querySelector('.profile-form');
 export const formAdd = document.querySelector('.add-form');
-export const formAvatar = document.querySelector('.avatar__form');
+export const formAvatar = document.querySelector('.avatar-form');
 export const buttonEdit = document.querySelector('.profile__edit-button');
 export const profileAddButton = document.querySelector('.profile__add-button');
 export const cardsSection = document.querySelector('.cards');
