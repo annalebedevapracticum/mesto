@@ -15,14 +15,16 @@
         </header>
         <main class="main">
             <section class="profile">
-                <img class="profile__avatar" alt="Аватар" src="<%=require('./images/avatar.png')%>">
+                <div class="profile__avatar-wrapper">
+                    <img class="profile__avatar" alt="Аватар" src="#">
+                </div>
                 <div class="profile__info">
                     <div class="profile__row">
-                        <h1 class="profile__name">Жак-Ив Кусто</h1>
+                        <h1 class="profile__name"></h1>
                         <button type="button" class="profile__edit-button"><img class="profile__edit-image"
                                 alt="Изменить" src="<%=require('./images/editbutton.svg')%>"></button>
                     </div>
-                    <p class="profile__description">Исследователь океана</p>
+                    <p class="profile__description"></p>
                 </div>
                 <button type="button" class="profile__add-button"><img class="profile__plus" alt="Добавить"
                         src="<%=require('./images/Vector2.svg')%>"></button>
@@ -62,7 +64,22 @@
                     <p class="popup__text"></p>
                 </div>
             </div>
-
+            <div class="popup popup-confirmation" >
+                <form name="confirmation__form" class="popup__container" novalidate>
+                    <button type="button" class="popup__close"></button>
+                    <h3 class="popup__title popup__title-confirmation">Вы уверены?</h3>
+                    <button class="popup__submit" type="submit">Да</button>
+                </form>
+            </div>
+            <div class="popup popup-avatar" >
+                <form name="avatar__form" class="popup__container avatar__form" novalidate>
+                    <button type="button" class="popup__close"></button>
+                    <h3 class="popup__title">Обновить ававтар</h3>
+                    <input name="link" type="url" class="popup__inputs" required
+                        placeholder="Ссылка на картинку">
+                    <button class="popup__submit popup__submit-avatar" type="submit">Сохранить</button>
+                </form>
+            </div>
         </main>
         <footer class="footer">
             <p class="footer__info">&copy; 2022 Mesto Russia</p>
@@ -74,7 +91,10 @@
             <button type="button" class="card__delete"></button>
             <div class="card__description">
                 <p class="card__title"></p>
-                <button type="button" class="card__like"></button>
+                <div class="card__like-wraper">
+                    <button type="button" class="card__like"></button>
+                    <div class="card__like-count">0</div>
+                </div>
             </div>
 
         </div>
