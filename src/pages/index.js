@@ -5,7 +5,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import "./index.css";
-import { mestoConfig, initialCards, buttonEdit, cardsSection, formAdd, formEdit, profileAddButton, avatarButton, formAvatar } from "../utils/constants.js";
+import { mestoConfig, buttonEdit, cardsSection, formAdd, formEdit, profileAddButton, avatarButton, formAvatar } from "../utils/constants.js";
 import { Api } from "../components/Api.js";
 import PopupConfirmation from "../components/PopupConfirmation.js";
 
