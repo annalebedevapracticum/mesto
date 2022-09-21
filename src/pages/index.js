@@ -18,72 +18,93 @@ const api = new Api({
     }
 });
 
-
 export const imagePopupForm = new PopupWithImage('.popup-image');
-const addCardForm = new FormValidator(mestoConfig, formAdd);
-const editProfileForm = new FormValidator(mestoConfig, formEdit);
+const cardAddForm = new FormValidator(mestoConfig, formAdd);
+const profileEditForm = new FormValidator(mestoConfig, formEdit);
 const avatarForm = new FormValidator(mestoConfig, formAvatar);
 const confirmationForm = new PopupConfirmation('.popup-confirmation');
 
-addCardForm.enableValidation();
-editProfileForm.enableValidation();
+cardAddForm.enableValidation();
+profileEditForm.enableValidation();
 
 const profileInfo = new UserInfo({ nameSelector: ".profile__name", descriptionSelector: ".profile__description", imageSelector: ".profile__avatar" });
 
 const handleCardClick = (src, name) => imagePopupForm.open(src, name);
-const handleDeleteRequest = (cardId) => {
-    return api.removeCard(cardId);
+const handleDeleteRequest = (cardId, removeElementCallback) => {
+    api.removeCard(cardId)
+        .then(removeElementCallback)
+        .catch((error) => console.log(`Ошибка: ${error}`));
 };
 
-function createCard(src, name, likeCount, hasDelete, cardId, isLiked) {
+const handleLike = (cardId, updateLikeBlockCallback) => {
+    api.likeCard(cardId)
+        .then(updateLikeBlockCallback)
+        .catch((error) => console.log(`Ошибка: ${error}`));
+}
+const handleRemoveLike = (cardId, updateLikeBlockCallback) => {
+    api.deleteCardLike(cardId)
+        .then(updateLikeBlockCallback)
+        .catch((error) => console.log(`Ошибка: ${error}`));
+}
+
+function createCard(src, name, likes, owner, cardId) {
+    const userId = profileInfo.getUserInfo()._id;
     const card = new Card({
-        likeCount,
+        userId,
+        likes,
         name,
         src,
-        hasDelete,
+        owner,
         cardId,
-        isLiked,
         confirmationForm
-    }, '.card-template', handleCardClick, handleDeleteRequest, api.likeCard, api.deleteCardLike);
+    }, '.card-template', handleCardClick, handleDeleteRequest, handleLike, handleRemoveLike);
 
     return card.generateCard();
 }
 
-const handleEditSubmit = ([name, description]) => {
+const cardList = new Section({
+    renderer: (item) => {
+        const { link, name, likes, owner } = item;
+        const card = createCard(link, name, likes, owner, item._id);
+        cardList.setItem(card);
+    }
+}, '.cards');
+
+const handleEditSubmit = ({ name, description }, closeCallback) => {
     return api.updateProfileInfo(name, description).then(({ name, about }) => {
         profileInfo.setUserInfo({ name, about });
-    });
+    }).then(closeCallback).catch((error) => console.log(`Ошибка: ${error}`));
 }
-const handleUpdateAvatarSubmit = ([avatar]) => {
-    return api.updateAvatar(avatar).then(() => {
-        profileInfo.setUserInfo({ avatar });
-    });
+const handleUpdateAvatarSubmit = ({ link }, closeCallback) => {
+    return api.updateAvatar(link).then(() => {
+        profileInfo.setUserInfo({ avatar: link });
+    }).then(closeCallback).catch((error) => console.log(`Ошибка: ${error}`));
 }
-const handleAddSubmit = ([name, src]) => {
-    const userId = profileInfo.getUserInfo().id;
-    return api.addCard(name, src).then(({ name, link, likes, _id }) => {
+const handleAddSubmit = ({ name, link }, closeCallback) => {
+    const userId = profileInfo.getUserInfo()._id;
+    return api.addCard(name, link).then(({ name, link, likes, _id, owner }) => {
         const isLiked = !!likes.find((item) => {
             return item._id === userId;
         })
-        const card = createCard(link, name, likes.length, true, _id, isLiked);
-        addCardForm.toggleButtonState();
-        cardsSection.prepend(card);
+        const card = createCard(link, name, likes, owner, _id);
+        cardAddForm.toggleButtonState();
+        cardList.addToStart(card);
         formAdd.reset();
-    })
+    }).then(closeCallback).catch((error) => console.log(`Ошибка: ${error}`));
 }
 
-export const editPopupForm = new PopupWithForm('.popup-info', handleEditSubmit);
-export const addCardPopupForm = new PopupWithForm('.popup-add-card', handleAddSubmit);
+export const popupEditForm = new PopupWithForm('.popup-info', handleEditSubmit);
+export const popupAddCardForm = new PopupWithForm('.popup-add-card', handleAddSubmit);
 export const avatarPopupForm = new PopupWithForm('.popup-avatar', handleUpdateAvatarSubmit);
 
 buttonEdit.addEventListener('click', function () {
     const { name, about } = profileInfo.getUserInfo();
-    editPopupForm.open([name, about]);
-    editProfileForm.resetValidation();
+    popupEditForm.open([name, about]);
+    profileEditForm.resetValidation();
 });
 profileAddButton.addEventListener('click', function () {
-    addCardPopupForm.open([]);
-    addCardForm.resetValidation();
+    popupAddCardForm.open([]);
+    cardAddForm.resetValidation();
 });
 
 avatarButton.addEventListener('click', function () {
@@ -91,25 +112,8 @@ avatarButton.addEventListener('click', function () {
     avatarForm.resetValidation();
 });
 
-
-api.getUserInfo().then(({ name, about, _id, avatar }) => {
+Promise.all([api.getUserInfo(), api.getCardsInfo()]).then(([{ name, about, _id, avatar }, data]) => {
     profileInfo.setUserInfo({ name, about, _id, avatar });
-    api.getCardsInfo().then(data => {
-        const cardList = new Section({
-            items: data,
-            renderer: (item) => {
-                const { link, name, likes, owner } = item;
-                const isLiked = !!likes.find((item) => {
-                    return item._id === _id;
-                })
-                const card = createCard(link, name, likes.length, _id === owner._id, item._id, isLiked);
-                cardList.setItem(card);
-            }
-        }, '.cards');
 
-        cardList.renderItems();
-    })
-        .catch((error) => console.log(`Ошибка: ${error}`))
-})
-    .catch((error) => console.log(`Ошибка: ${error}`))
-
+    cardList.renderItems(data);
+}).catch((error) => console.log(`Ошибка: ${error}`))

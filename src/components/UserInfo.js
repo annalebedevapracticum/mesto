@@ -11,7 +11,7 @@ export default class UserInfo {
         return {
             name: this._nameBlock.textContent,
             about: this._descriptionBlock.textContent,
-            id: this._id,
+            _id: this._id,
             avatar: this._avatar
         }
     }

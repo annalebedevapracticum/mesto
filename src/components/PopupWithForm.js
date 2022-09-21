@@ -10,7 +10,9 @@ export default class PopupWithForm extends Popup {
         this._defaultButtonText = this._buttonSubmit.textContent;
     }
     _getInputValues = () => {
-        return Array.from(this._inputList).map(input => input.value);
+        const values = {};
+        this._inputList.forEach(item => values[item.name] = item.value);
+        return values;
     }
 
     open(initialValues) {
@@ -24,9 +26,7 @@ export default class PopupWithForm extends Popup {
     _handleSubmitClick = (e) => {
         e.preventDefault();
         this._buttonSubmit.textContent = "Сохранение..."
-        this._handleSubmit(this._getInputValues()).then(() => {
-            this.close();
-        });
+        this._handleSubmit(this._getInputValues(), this.close);
     }
 
     setEventListeners() {
@@ -34,7 +34,7 @@ export default class PopupWithForm extends Popup {
         this._buttonSubmit.addEventListener('click', this._handleSubmitClick);
     }
 
-    close() {
+    close = () => {
         this._form.reset();
         super.close();
         this._buttonSubmit.removeEventListener('click', this._handleSubmitClick);
