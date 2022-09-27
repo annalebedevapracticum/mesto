@@ -1,5 +1,5 @@
 export class Card {
-    constructor(data, templateSelector, handleCardClick, _handleDeleteFunc, handleLike, handleRemoveLike) {
+    constructor(data, templateSelector, handleCardClick, handleDeleteFunc, handleLike, handleRemoveLike, openConformationForm) {
         this._data = data;
         this._element = document.querySelector(templateSelector).content.children[0].cloneNode(true);
         this._buttonDelete = this._element.querySelector('.card__delete');
@@ -8,9 +8,10 @@ export class Card {
         this._cardTitle = this._element.querySelector('.card__title');
         this._likeCount = this._element.querySelector('.card__like-count');
         this._handleCardClick = handleCardClick;
-        this._handleDeleteFunc = _handleDeleteFunc;
+        this._handleDeleteFunc = handleDeleteFunc;
         this._handleLike = handleLike;
         this._handleRemoveLike = handleRemoveLike;
+        this._openConformationForm = openConformationForm;
         if (!this._getIsMyCard()) {
             this._buttonDelete.classList.add('card__delete-hidden');
         }
@@ -32,7 +33,7 @@ export class Card {
     }
 
     _handleDeleteClick = () => {
-        this._data.confirmationForm.open(this._handleDelete)
+        this._openConformationForm(this._handleDelete);
     }
 
     _updateLike = ({ likes }) => {

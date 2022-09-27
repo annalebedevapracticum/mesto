@@ -18,8 +18,9 @@ export default class PopupWithForm extends Popup {
     open(initialValues) {
         super.open();
         this._buttonSubmit.textContent = this._defaultButtonText;
-        initialValues.forEach((value, index) => {
-            this._inputList[index].value = value;
+        Object.keys(initialValues).forEach((key) => {
+            const currentInput = Array.from(this._inputList).find(item => item.name == key);
+            currentInput.value = initialValues[key];
         })
     }
 

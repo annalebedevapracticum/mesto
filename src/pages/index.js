@@ -47,6 +47,10 @@ const handleRemoveLike = (cardId, updateLikeBlockCallback) => {
         .catch((error) => console.log(`Ошибка: ${error}`));
 }
 
+const handleOpenConfirmationForm = (handleDeleteCallback) => {
+    confirmationForm.open(handleDeleteCallback);
+}
+
 function createCard(src, name, likes, owner, cardId) {
     const userId = profileInfo.getUserInfo()._id;
     const card = new Card({
@@ -56,8 +60,7 @@ function createCard(src, name, likes, owner, cardId) {
         src,
         owner,
         cardId,
-        confirmationForm
-    }, '.card-template', handleCardClick, handleDeleteRequest, handleLike, handleRemoveLike);
+    }, '.card-template', handleCardClick, handleDeleteRequest, handleLike, handleRemoveLike, handleOpenConfirmationForm);
 
     return card.generateCard();
 }
@@ -70,14 +73,14 @@ const cardList = new Section({
     }
 }, '.cards');
 
-const handleEditSubmit = ({ name, description }, closeCallback) => {
-    return api.updateProfileInfo(name, description).then(({ name, about }) => {
+const handleEditSubmit = ({ name, about }, closeCallback) => {
+    return api.updateProfileInfo(name, about).then(({ name, about }) => {
         profileInfo.setUserInfo({ name, about });
     }).then(closeCallback).catch((error) => console.log(`Ошибка: ${error}`));
 }
-const handleUpdateAvatarSubmit = ({ link }, closeCallback) => {
-    return api.updateAvatar(link).then(() => {
-        profileInfo.setUserInfo({ avatar: link });
+const handleUpdateAvatarSubmit = ({ avatar }, closeCallback) => {
+    return api.updateAvatar(avatar).then(() => {
+        profileInfo.setUserInfo({ avatar });
     }).then(closeCallback).catch((error) => console.log(`Ошибка: ${error}`));
 }
 const handleAddSubmit = ({ name, link }, closeCallback) => {
@@ -99,16 +102,17 @@ export const avatarPopupForm = new PopupWithForm('.popup-avatar', handleUpdateAv
 
 buttonEdit.addEventListener('click', function () {
     const { name, about } = profileInfo.getUserInfo();
-    popupEditForm.open([name, about]);
+    popupEditForm.open({ name, about });
     profileEditForm.resetValidation();
 });
 profileAddButton.addEventListener('click', function () {
-    popupAddCardForm.open([]);
+    popupAddCardForm.open({});
     cardAddForm.resetValidation();
 });
 
 avatarButton.addEventListener('click', function () {
-    avatarPopupForm.open([profileInfo.getUserInfo().avatar]);
+    const { avatar } = profileInfo.getUserInfo();
+    avatarPopupForm.open({ avatar });
     avatarForm.resetValidation();
 });
 
