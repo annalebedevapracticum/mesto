@@ -7,6 +7,7 @@ export class Card {
         this._cardImage = this._element.querySelector('.card__image');
         this._cardTitle = this._element.querySelector('.card__title');
         this._likeCount = this._element.querySelector('.card__like-count');
+        this._likes = data.likes;
         this._handleCardClick = handleCardClick;
         this._handleDeleteFunc = handleDeleteFunc;
         this._handleLike = handleLike;
@@ -17,7 +18,7 @@ export class Card {
         }
     }
 
-    _getIsLiked = (likes) => likes.some((item) => {
+    _getIsLiked = () => this._likes.some((item) => {
         return item._id === this._data.userId;
     })
 
@@ -37,7 +38,8 @@ export class Card {
     }
 
     _updateLike = ({ likes }) => {
-        if (this._getIsLiked(likes)) {
+        this._likes = likes;
+        if (this._getIsLiked()) {
             this._buttonLike.classList.add('card__like_active');
         } else {
             this._buttonLike.classList.remove('card__like_active');
@@ -46,7 +48,7 @@ export class Card {
     }
 
     _handleLikeClick = () => {
-        if (this._getIsLiked(this._data.likes)) {
+        if (this._getIsLiked()) {
             this._handleRemoveLike(this._data.cardId, this._updateLike)
         } else {
             this._handleLike(this._data.cardId, this._updateLike)
